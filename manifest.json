@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Github extension",
+  "description": "This extension helps you to review pull requests better",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_title": "Github extension",
+    "default_icon": "128.png"
+  },
+  "author": "Orian Zinger"
+}
