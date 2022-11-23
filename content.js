@@ -1,13 +1,13 @@
 function sleep(ms) {
+    console.log("Waiting " + ms + "ms");
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function clickOnAllElementsByClassName(className) {
     var elements = document.getElementsByClassName(className);
     while (elements.length > 0) {
-        console.log(`Clicking...`);
+        console.log("Clicking");
         elements[0].click();
-        console.log(`Waiting 5 seconds...`);
         await sleep(5000);
         elements = document.getElementsByClassName(className);
     }
@@ -28,12 +28,20 @@ async function showAllConversations() {
 
 async function loadAllDiffs() {
     scrollToBottom();
-    console.log(`Waiting 5 seconds...`);
     await sleep(5000);
 
     clickOnAllElementsByClassName("load-diff-button");
     scrollToTop();
 }
 
-showAllConversations();
-loadAllDiffs();
+async function main() {
+    var currentURL = document.location.href;
+    if (currentURL.includes("/files")) {
+        loadAllDiffs();
+    } else if (currentURL.includes("/pull/")) {
+        showAllConversations();
+    }
+    console.log("Done");
+}
+
+main();
